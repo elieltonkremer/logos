@@ -76,6 +76,16 @@ class Service(AbstractResource):
         return factory(**Parameter.resolve_value(self.parameters, container))
 
 
+class Class(AbstractResource):
+
+    def __init__(self, class_path: str):
+        self.class_path = class_path
+
+    def resolve(self, container: AbstractContainer):
+        module_path, class_name = self.class_path.split(':')
+        return getattr(import_module(module_path), class_name)
+
+
 class ResourceGroup(AbstractResource):
 
     def __init__(self, pattern: str):
