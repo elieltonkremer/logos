@@ -155,7 +155,12 @@ class ApplicationContainer(AbstractContainer):
     @property
     def container(self) -> AbstractContainer:
         if self._container is None:
-            stack = []
+            stack = [
+                Container({
+                    "app.modules": Parameter(self.modules),
+                    "app.configuration": Parameter(self.configuration)
+                })
+            ]
             for module in self.modules:
                 try:
                     stack.append(getattr(import_module(module), 'container'))
