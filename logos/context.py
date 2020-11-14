@@ -242,7 +242,15 @@ class __ContextWrapper(AbstractContainer):
         if self._stack is None:
             self._stack = StackContainer([ApplicationContainer.instance])
         contexts = Context.instances.get([])
-        return contexts[-1] if len(contexts) else Context(self._stack)
+        if len(contexts):
+            return contexts[-1]
+        else:
+            stack_list = [self._stack]
+            _context = Context(StackContainer(stack_list))
+            stack_list.append(Container({
+                'context': Parameter(_context)
+            }))
+            return _context
 
     def get(self, name: str):
         return self.container.get(name)
