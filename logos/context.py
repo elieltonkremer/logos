@@ -115,11 +115,11 @@ class Container(AbstractContainer):
 class StackContainer(AbstractContainer):
 
     def __init__(self, containers: List[AbstractContainer]):
-        self.containers = reversed(containers)
+        self.containers = containers
         self._resources_names = set()
 
     def get(self, name: str):
-        for container in self.containers:
+        for container in reversed(self.containers):
             if container.has(name):
                 return container.get(name)
         return self.containers[0].get(name)  # throws error
