@@ -226,7 +226,7 @@ class Context(AbstractContainer):
             if name not in runtime.keys() and hasattr(value, 'clone'):
                 runtime[name] = value.clone()
         if container is not None:
-            container = StackContainer([container, context.container])
+            container = StackContainer([context.container, container])
         else:
             container = StackContainer([context.container])
         return cls(container, runtime)
