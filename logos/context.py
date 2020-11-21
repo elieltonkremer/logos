@@ -115,7 +115,7 @@ class Container(AbstractContainer):
 class StackContainer(AbstractContainer):
 
     def __init__(self, containers: List[AbstractContainer]):
-        self.containers = containers
+        self.containers = reversed(containers)
         self._resources_names = set()
 
     def get(self, name: str):
