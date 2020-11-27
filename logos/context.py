@@ -55,7 +55,7 @@ class Service(AbstractResource):
     def __init__(self, klz: str = None, factory: str = None, parameters: dict = None):
         if klz is not None:
             self.klz = klz
-        if factory is not None:
+        elif factory is not None:
             self.factory = factory
         else:
             raise ValueError('class or factory is required')
